@@ -1,0 +1,95 @@
+.services{
+
+padding:120px 8%;
+
+background:#f8fafc;
+
+text-align:center;
+
+}
+
+.services h2{
+
+font-size:50px;
+
+color:#123D73;
+
+margin:25px 0 70px;
+
+}
+
+.services-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+gap:30px;
+
+}
+
+.service-card{
+
+background:white;
+
+padding:45px 35px;
+
+border-radius:20px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+transition:.35s;
+
+}
+
+.service-card:hover{
+
+transform:translateY(-12px);
+
+}
+
+.service-icon{
+
+width:80px;
+
+height:80px;
+
+margin:auto;
+
+border-radius:50%;
+
+background:#123D73;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+margin-bottom:25px;
+
+}
+
+.service-icon svg{
+
+font-size:34px;
+
+color:#D9A520;
+
+}
+
+.service-card h3{
+
+color:#123D73;
+
+margin-bottom:15px;
+
+}
+
+.service-card p{
+
+line-height:1.8;
+
+color:#666;
+
+}
