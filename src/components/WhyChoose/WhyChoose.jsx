@@ -1,9 +1,11 @@
 import "./WhyChoose.css";
 import {
-  FaCheckCircle,
   FaAward,
+  FaTools,
+  FaTruckMoving,
+  FaUserShield,
+  FaHammer,
   FaClock,
-  FaHandshake
 } from "react-icons/fa";
 
 const reasons = [
@@ -13,19 +15,29 @@ const reasons = [
     text: "We use only high-quality stainless steel and aluminium materials."
   },
   {
-    icon: <FaClock />,
-    title: "On-Time Delivery",
-    text: "Projects are completed professionally and delivered on schedule."
+    icon: <FaHammer />,
+    title: "Expert Fabrication",
+    text: "Every project is fabricated with precision and excellent workmanship."
   },
   {
-    icon: <FaCheckCircle />,
-    title: "Guaranteed Workmanship",
-    text: "Every installation is completed with precision and attention to detail."
+    icon: <FaTools />,
+    title: "Professional Installation",
+    text: "Our experienced team ensures every installation is completed perfectly."
   },
   {
-    icon: <FaHandshake />,
+    icon: <FaTruckMoving />,
+    title: "Fast Delivery",
+    text: "We deliver projects within agreed timelines without compromising quality."
+  },
+  {
+    icon: <FaUserShield />,
     title: "Trusted Service",
-    text: "Our reputation is built on honesty, professionalism and satisfied clients."
+    text: "Hundreds of satisfied residential and commercial clients trust our work."
+  },
+  {
+    icon: <FaClock />,
+    title: "Reliable Support",
+    text: "We remain available for maintenance and after-sales support."
   }
 ];
 
@@ -33,27 +45,15 @@ export default function WhyChoose() {
   return (
     <section className="why">
 
-      <div className="why-left">
+      <div className="why-heading">
 
-        <span className="section-tag">
-          WHY CHOOSE US
-        </span>
+        <span>WHY CHOOSE US</span>
 
-        <h2>
-          Engineering Excellence
-          <br />
-          You Can Trust.
-        </h2>
-
-        <p>
-          We don't just fabricate steel.
-          We create durable structures that combine
-          strength, beauty and long-term value.
-        </p>
+        <h2>Why Customers Trust Halogen</h2>
 
       </div>
 
-      <div className="why-right">
+      <div className="why-grid">
 
         {reasons.map((item,index)=>(
 
@@ -63,13 +63,9 @@ export default function WhyChoose() {
               {item.icon}
             </div>
 
-            <div>
+            <h3>{item.title}</h3>
 
-              <h3>{item.title}</h3>
-
-              <p>{item.text}</p>
-
-            </div>
+            <p>{item.text}</p>
 
           </div>
 

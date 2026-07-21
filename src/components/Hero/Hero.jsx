@@ -1,6 +1,6 @@
 import "./Hero.css";
 import { Link } from "react-router-dom";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaChevronDown } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 import hero1 from "../../assets/images/hero/hero1.jpg";
@@ -38,7 +38,7 @@ export default function Hero() {
       <div className="hero-content">
 
         <span className="hero-tag">
-          Stainless Steel • Aluminium • Engineering Excellence
+          Stainless Steel • Engineering Excellence
         </span>
 
         <h1>
@@ -49,27 +49,52 @@ export default function Hero() {
 
         <p>
           Halogen Stainless & Steel Venture delivers premium stainless steel
-          railings, electric fencing, aluminium works, modern gates,
-          carports, cubicles and custom fabrication with outstanding
-          craftsmanship.
+          railings, electric fencing, modern gates,
+          carports, cubicles and custom fabrication with outstanding craftsmanship.
         </p>
 
         <div className="hero-buttons">
 
-          <Link to="/register" className="hero-btn-primary">
+          <Link to="/contact" className="hero-btn-primary">
             Get Free Quote
             <FaArrowRight />
           </Link>
 
-          <Link to="/services" className="hero-btn-secondary">
-            Our Services
+          <Link to="/products" className="hero-btn-secondary">
+            Browse Products
           </Link>
 
         </div>
+
+        <div className="hero-stats">
+
+          <div>
+            <h2>100+</h2>
+            <span>Projects</span>
+          </div>
+
+          <div>
+            <h2>10+</h2>
+            <span>Years</span>
+          </div>
+
+          <div>
+            <h2>500+</h2>
+            <span>Clients</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div className="scroll-indicator">
+
+        <FaChevronDown />
 
       </div>
 
     </section>
 
   );
+
 }

@@ -1,0 +1,131 @@
+.get-price{
+
+padding:120px 8%;
+
+background:#123D73;
+
+}
+
+.price-container{
+
+max-width:700px;
+
+margin:auto;
+
+background:white;
+
+padding:60px;
+
+border-radius:25px;
+
+box-shadow:0 20px 50px rgba(0,0,0,.15);
+
+text-align:center;
+
+}
+
+.price-container span{
+
+color:#D9A520;
+
+font-weight:bold;
+
+letter-spacing:2px;
+
+}
+
+.price-container h2{
+
+margin:15px 0;
+
+font-size:42px;
+
+color:#123D73;
+
+}
+
+.price-container p{
+
+margin-bottom:40px;
+
+color:#555;
+
+}
+
+.price-container input,
+
+.price-container textarea{
+
+width:100%;
+
+padding:18px;
+
+margin-bottom:20px;
+
+border:1px solid #ddd;
+
+border-radius:12px;
+
+font-size:16px;
+
+outline:none;
+
+}
+
+.price-container textarea{
+
+resize:none;
+
+}
+
+.price-container button{
+
+width:100%;
+
+padding:18px;
+
+background:#D9A520;
+
+color:white;
+
+border:none;
+
+border-radius:40px;
+
+font-size:18px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.35s;
+
+}
+
+.price-container button:hover{
+
+background:#123D73;
+
+}
+
+@media(max-width:768px){
+
+.get-price{
+
+padding:90px 5%;
+
+}
+
+.price-container{
+
+padding:35px;
+
+}
+
+.price-container h2{
+
+font-size:32px;
+
+}
+
+}
