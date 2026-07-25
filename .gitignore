@@ -7,9 +7,20 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+
+# Build Output
 dist
 dist-ssr
+
+# Environment Variables
+.env
+.env.local
+.env.production
+.env.development
+
+# Local Files
 *.local
 
 # Editor directories and files
@@ -17,8 +28,23 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
+
+# Visual Studio
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
+
+# Swap Files
 *.sw?
+*.swp
+
+# Vercel
+.vercel
+
+# Coverage
+coverage
+
+# Cache
+.cache
