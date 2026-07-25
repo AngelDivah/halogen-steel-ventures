@@ -1,45 +1,80 @@
 import { useParams, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaShoppingCart, FaWhatsapp } from "react-icons/fa";
 
-import products from "../../data/products";
+import supabase from "../../lib/supabase";
 import { useCart } from "../../context/CartContext";
 import ProductCard from "../../components/ProductCard/ProductCard";
 
 import "./ProductDetails.css";
 
 export default function ProductDetails() {
+
   const { id } = useParams();
 
   const { addToCart } = useCart();
 
-  const product = products.find(
-    (p) => p.id === Number(id)
-  );
+  const [product, setProduct] = useState(null);
 
-  if (!product) {
-    return (
-      <div className="product-not-found">
-        <h2>Product Not Found</h2>
-      </div>
-    );
-  }
+  const [relatedProducts, setRelatedProducts] = useState([]);
 
-  const relatedProducts = products
-    .filter(
-      (item) =>
-        item.category === product.category &&
-        item.id !== product.id
-    )
-    .slice(0, 4);
+  const [mainImage, setMainImage] = useState("");
 
-  const [mainImage, setMainImage] = useState(product.images[0]);
   const [quantity, setQuantity] = useState(1);
 
-  const imagePath = (image) =>
-    `/images/${product.folder}/${image}`;
+  useEffect(() => {
+
+    loadProduct();
+
+  }, [id]);
+
+  const loadProduct = async () => {
+
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error) {
+
+      console.log(error);
+
+      return;
+
+    }
+
+    setProduct(data);
+
+    setMainImage(data.cover);
+
+    const { data: related } = await supabase
+      .from("products")
+      .select("*")
+      .eq("category", data.category);
+
+    setRelatedProducts(
+      related.filter((item) => item.id !== data.id)
+    );
+
+  };
+
+  if (!product) {
+
+    return (
+
+      <div className="product-not-found">
+
+        <h2>Loading...</h2>
+
+      </div>
+
+    );
+
+  }
 
   return (
+
     <>
 
       <section className="product-details">
@@ -47,19 +82,21 @@ export default function ProductDetails() {
         <div className="details-left">
 
           <div className="details-image">
+
             <img
-              src={imagePath(mainImage)}
+              src={mainImage}
               alt={product.title}
             />
+
           </div>
 
           <div className="thumbnail-images">
 
-            {product.images.map((image, index) => (
+            {product.images?.map((image) => (
 
               <img
-                key={index}
-                src={imagePath(image)}
+                key={image}
+                src={image}
                 alt={product.title}
                 onClick={() => setMainImage(image)}
                 className={
@@ -82,20 +119,23 @@ export default function ProductDetails() {
           <h1>{product.title}</h1>
 
           <h2>
-            ₦{product.price.toLocaleString()}
+
+            ₦
+            {Number(product.price).toLocaleString()}
+
           </h2>
 
           <p>
-            <strong>Measurement:</strong>{" "}
+
+            <strong>Measurement:</strong>
+
+            {" "}
+
             {product.measurement}
+
           </p>
 
-          {product.material && (
-            <p>
-              <strong>Material:</strong>{" "}
-              {product.material}
-            </p>
-          )}
+          <p>{product.description}</p>
 
           <div className="quantity-box">
 
@@ -105,7 +145,9 @@ export default function ProductDetails() {
                 setQuantity(quantity - 1)
               }
             >
+
               -
+
             </button>
 
             <span>{quantity}</span>
@@ -115,7 +157,9 @@ export default function ProductDetails() {
                 setQuantity(quantity + 1)
               }
             >
+
               +
+
             </button>
 
           </div>
@@ -131,18 +175,24 @@ export default function ProductDetails() {
                 })
               }
             >
+
               <FaShoppingCart />
+
               Add To Cart
+
             </button>
 
             <a
               className="whatsapp-btn"
-              href={`https://wa.me/2347035742676?text=Hello Halogen Steel Ventures, I am interested in ${product.title}`}
+              href={`https://wa.me/2347035742676?text=Hello Halogen Steel Ventures, I'm interested in ${encodeURIComponent(product.title)}`}
               target="_blank"
               rel="noreferrer"
             >
+
               <FaWhatsapp />
+
               WhatsApp
+
             </a>
 
           </div>
@@ -151,7 +201,9 @@ export default function ProductDetails() {
             to="/products"
             className="back-link"
           >
+
             ← Back to Products
+
           </Link>
 
         </div>
@@ -163,10 +215,6 @@ export default function ProductDetails() {
         <div className="section-title">
 
           <h2>Related Products</h2>
-
-          <p>
-            You may also like these products
-          </p>
 
         </div>
 
@@ -186,5 +234,7 @@ export default function ProductDetails() {
       </section>
 
     </>
+
   );
+
 }

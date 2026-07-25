@@ -1,5 +1,5 @@
-import { useState } from "react";
-import products from "../../data/products";
+import { useEffect, useState } from "react";
+import supabase from "../../lib/supabase";
 
 import ProductCard from "../../components/ProductCard/ProductCard";
 
@@ -7,14 +7,34 @@ import "./Products.css";
 
 export default function Products() {
 
+  const [products, setProducts] = useState([]);
+
   const [category, setCategory] = useState("All");
+
+  useEffect(() => {
+
+    getProducts();
+
+  }, []);
+
+  const getProducts = async () => {
+
+    const { data, error } = await supabase
+      .from("products")
+      .select("*");
+
+    if (error) {
+      console.log(error);
+      return;
+    }
+
+    setProducts(data);
+
+  };
 
   const categories = [
     "All",
-    "Carports",
-    "Stainless Gates",
-    "Stainless Steel Railings",
-    "Tempered Glass"
+    ...new Set(products.map((item) => item.category)),
   ];
 
   const filteredProducts =
@@ -40,51 +60,36 @@ export default function Products() {
 
       <div className="category-filter">
 
-        {
+        {categories.map((item) => (
 
-          categories.map((item) => (
+          <button
+            key={item}
+            className={
+              category === item
+                ? "active-category"
+                : ""
+            }
+            onClick={() => setCategory(item)}
+          >
 
-            <button
+            {item}
 
-              key={item}
+          </button>
 
-              className={
-                category === item
-                  ? "active-category"
-                  : ""
-              }
-
-              onClick={() => setCategory(item)}
-
-            >
-
-              {item}
-
-            </button>
-
-          ))
-
-        }
+        ))}
 
       </div>
 
       <div className="products-grid">
 
-        {
+        {filteredProducts.map((product) => (
 
-          filteredProducts.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+          />
 
-            <ProductCard
-
-              key={product.id}
-
-              product={product}
-
-            />
-
-          ))
-
-        }
+        ))}
 
       </div>
 

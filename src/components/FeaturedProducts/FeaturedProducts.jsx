@@ -2,26 +2,57 @@ import "./FeaturedProducts.css";
 
 import { Link } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaWhatsapp } from "react-icons/fa";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
-import products from "../../data/products";
+import supabase from "../../lib/supabase";
 
 export default function FeaturedProducts() {
 
   const slider = useRef();
 
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+
+    getProducts();
+
+  }, []);
+
+  const getProducts = async () => {
+
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .limit(8);
+
+    if (error) {
+
+      console.log(error);
+
+      return;
+
+    }
+
+    setProducts(data);
+
+  };
+
   const next = () => {
+
     slider.current.scrollBy({
       left: 350,
       behavior: "smooth",
     });
+
   };
 
   const prev = () => {
+
     slider.current.scrollBy({
       left: -350,
       behavior: "smooth",
     });
+
   };
 
   return (
@@ -57,57 +88,63 @@ export default function FeaturedProducts() {
         ref={slider}
       >
 
-        {products
-          .filter((product) => product.featured)
-          .map((product) => (
+        {products.map((product) => (
 
-            <div
-              className="featured-card"
-              key={product.id}
-            >
+          <div
+            className="featured-card"
+            key={product.id}
+          >
 
-              <img
-                src={product.image}
-                alt={product.name}
-              />
+            <img
+              src={product.cover}
+              alt={product.title}
+            />
 
-              <div className="featured-info">
+            <div className="featured-info">
 
-                <p>{product.category}</p>
+              <p>{product.category}</p>
 
-                <h3>{product.name}</h3>
+              <h3>{product.title}</h3>
 
-                <h4>
-                  ₦{product.price.toLocaleString()}
-                </h4>
+              <h4>
 
-                <div className="featured-buttons">
+                ₦{Number(product.price).toLocaleString()}
 
-                  <Link
-                    to="/products"
-                    className="view-btn"
-                  >
-                    View Product
-                  </Link>
+              </h4>
 
-                  <button className="cart-btn">
-                    Add To Cart
-                  </button>
+              <div className="featured-buttons">
 
-                  <a
-                    href={`https://wa.me/2347035742676?text=I'm interested in ${product.name}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="whatsapp-card"
-                  >
-                    <FaWhatsapp />
-                  </a>
+                <Link
+                  to={`/products/${product.id}`}
+                  className="view-btn"
+                >
 
-                </div>
+                  View Product
+
+                </Link>
+
+                <button className="cart-btn">
+
+                  Add To Cart
+
+                </button>
+
+                <a
+                  href={`https://wa.me/2347035742676?text=I'm interested in ${encodeURIComponent(product.title)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="whatsapp-card"
+                >
+
+                  <FaWhatsapp />
+
+                </a>
 
               </div>
 
             </div>
+
+          </div>
 
         ))}
 

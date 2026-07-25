@@ -1,22 +1,56 @@
 import "./ProductCatalogue.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import products from "../../data/products";
+import supabase from "../../lib/supabase";
 
 export default function ProductCatalogue() {
 
-  const categories = [
-    "All",
-    ...new Set(products.map(product => product.category))
-  ];
+  const [products, setProducts] = useState([]);
 
   const [activeCategory, setActiveCategory] = useState("All");
 
+  useEffect(() => {
+
+    getProducts();
+
+  }, []);
+
+  const getProducts = async () => {
+
+    const { data, error } = await supabase
+      .from("products")
+      .select("*");
+
+    if (error) {
+
+      console.log(error);
+
+      return;
+
+    }
+
+    setProducts(data);
+
+  };
+
+  const categories = [
+
+    "All",
+
+    ...new Set(products.map(product => product.category))
+
+  ];
+
   const filteredProducts =
+
     activeCategory === "All"
+
       ? products
+
       : products.filter(
+
           product => product.category === activeCategory
+
         );
 
   return (
@@ -36,13 +70,21 @@ export default function ProductCatalogue() {
         {categories.map(category => (
 
           <button
+
             key={category}
+
             className={
+
               activeCategory === category
+
                 ? "tab active-tab"
+
                 : "tab"
+
             }
+
             onClick={() => setActiveCategory(category)}
+
           >
 
             {category}
@@ -58,13 +100,19 @@ export default function ProductCatalogue() {
         {filteredProducts.map(product => (
 
           <div
+
             className="catalogue-card"
+
             key={product.id}
+
           >
 
             <img
-              src={`/images/${product.folder}/${product.cover}`}
+
+              src={product.cover}
+
               alt={product.title}
+
             />
 
             <div className="catalogue-info">
@@ -73,8 +121,8 @@ export default function ProductCatalogue() {
 
                 {product.category}
 
-                {product.subCategory &&
-                  ` • ${product.subCategory}`}
+                {product.subcategory &&
+                  ` • ${product.subcategory}`}
 
               </span>
 
@@ -86,7 +134,7 @@ export default function ProductCatalogue() {
 
               <p className="price">
 
-                ₦{product.price.toLocaleString()}
+                ₦{Number(product.price).toLocaleString()}
 
               </p>
 
@@ -97,8 +145,11 @@ export default function ProductCatalogue() {
               </p>
 
               <Link
+
                 to={`/products/${product.id}`}
+
                 className="view-btn"
+
               >
 
                 View Product

@@ -1,0 +1,21 @@
+.orders-page{
+  padding:30px;
+}
+
+.orders-page table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.orders-page th,
+.orders-page td{
+  padding:15px;
+  border-bottom:1px solid #ddd;
+  text-align:left;
+}
+
+.orders-page button{
+  margin-right:8px;
+  padding:8px 15px;
+  cursor:pointer;
+}

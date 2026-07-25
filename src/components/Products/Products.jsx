@@ -1,30 +1,81 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import supabase from "../../lib/supabase";
 
 import "./Products.css";
 
-import products from "../../data/products";
 import ProductCard from "../../components/ProductCard/ProductCard";
 
 export default function Products() {
+
+  const [products, setProducts] = useState([]);
 
   const [search, setSearch] = useState("");
 
   const [category, setCategory] = useState("All");
 
+  useEffect(() => {
+
+    getProducts();
+
+  }, []);
+
+  const getProducts = async () => {
+
+    const { data, error } = await supabase
+      .from("products")
+      .select("*");
+
+    if (error) {
+
+      console.log(error);
+
+      return;
+
+    }
+
+    setProducts(data);
+
+  };
+
   const categories = [
+
     "All",
-    ...new Set(products.map((item) => item.category)),
+
+    ...new Set(products.map(item => item.category))
+
   ];
 
   const filteredProducts = products.filter((item) => {
 
+    const searchTerm = search.trim().toLowerCase();
+
+    const searchableFields = [
+
+      item.title,
+
+      item.category,
+
+      item.subcategory,
+
+      item.description,
+
+      item.measurement,
+
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+
     const matchesSearch =
-      item.title
-        .toLowerCase()
-        .includes(search.toLowerCase());
+
+      searchTerm === "" ||
+
+      searchableFields.includes(searchTerm);
 
     const matchesCategory =
+
       category === "All" ||
+
       item.category === category;
 
     return matchesSearch && matchesCategory;
@@ -49,16 +100,12 @@ export default function Products() {
           type="text"
           placeholder="Search products..."
           value={search}
-          onChange={(e) =>
-            setSearch(e.target.value)
-          }
+          onChange={(e) => setSearch(e.target.value)}
         />
 
         <select
           value={category}
-          onChange={(e) =>
-            setCategory(e.target.value)
-          }
+          onChange={(e) => setCategory(e.target.value)}
         >
 
           {categories.map((item) => (
@@ -67,7 +114,9 @@ export default function Products() {
               key={item}
               value={item}
             >
+
               {item}
+
             </option>
 
           ))}
@@ -76,18 +125,35 @@ export default function Products() {
 
       </div>
 
-      <div className="products-grid">
+      {filteredProducts.length === 0 ? (
 
-        {filteredProducts.map((product) => (
+        <div className="no-products">
 
-          <ProductCard
-            key={product.id}
-            product={product}
-          />
+          <h3>No products found.</h3>
 
-        ))}
+          <p>Try another keyword or category.</p>
 
-      </div>
+        </div>
+
+      ) : (
+
+        <div className="products-grid">
+
+          {filteredProducts.map((product) => (
+
+            <ProductCard
+
+              key={product.id}
+
+              product={product}
+
+            />
+
+          ))}
+
+        </div>
+
+      )}
 
     </section>
 

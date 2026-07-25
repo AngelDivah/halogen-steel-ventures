@@ -273,3 +273,15 @@ margin-top:20px;
 }
 
 }
+.logout-link{
+    background:none;
+    border:none;
+    color:inherit;
+    cursor:pointer;
+    font:inherit;
+    padding:0;
+}
+
+.logout-link:hover{
+    color:#C9A227;
+}

@@ -1,0 +1,133 @@
+.add-product-page{
+
+padding:10px;
+
+}
+
+.add-product-page h1{
+
+font-size:34px;
+
+color:#123D73;
+
+margin-bottom:30px;
+
+}
+
+.product-form{
+
+background:white;
+
+padding:40px;
+
+border-radius:20px;
+
+box-shadow:0 15px 40px rgba(0,0,0,.08);
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:25px;
+
+}
+
+.form-group{
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+.form-group.full{
+
+grid-column:1 / -1;
+
+}
+
+.form-group label{
+
+font-weight:600;
+
+margin-bottom:10px;
+
+color:#123D73;
+
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+
+padding:16px;
+
+border:1px solid #ddd;
+
+border-radius:10px;
+
+font-size:16px;
+
+outline:none;
+
+transition:.3s;
+
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+
+border-color:#123D73;
+
+box-shadow:0 0 0 3px rgba(18,61,115,.12);
+
+}
+
+.form-group textarea{
+
+resize:vertical;
+
+min-height:140px;
+
+}
+
+.save-btn{
+
+grid-column:1 / -1;
+
+padding:18px;
+
+background:#123D73;
+
+color:white;
+
+font-size:18px;
+
+font-weight:bold;
+
+border:none;
+
+border-radius:12px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.save-btn:hover{
+
+background:#D9A520;
+
+}
+
+@media(max-width:900px){
+
+.product-form{
+
+grid-template-columns:1fr;
+
+}
+
+}

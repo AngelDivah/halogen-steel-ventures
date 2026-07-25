@@ -1,0 +1,69 @@
+.track-page{
+
+padding:80px 20px;
+
+display:flex;
+
+justify-content:center;
+
+}
+
+.track-box{
+
+width:450px;
+
+background:white;
+
+padding:40px;
+
+border-radius:12px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.1);
+
+}
+
+.track-box input{
+
+width:100%;
+
+padding:14px;
+
+margin:12px 0;
+
+border:1px solid #ddd;
+
+border-radius:8px;
+
+}
+
+.track-box button{
+
+width:100%;
+
+padding:15px;
+
+background:#C9A227;
+
+color:white;
+
+border:none;
+
+border-radius:8px;
+
+cursor:pointer;
+
+font-size:16px;
+
+}
+
+.result{
+
+margin-top:30px;
+
+padding:20px;
+
+background:#f7f7f7;
+
+border-radius:10px;
+
+}

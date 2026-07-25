@@ -1,18 +1,59 @@
 import "./ProductShowcase.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import categories from "../../data/categories";
-import products from "../../data/products";
+import supabase from "../../lib/supabase";
 
 import ProductCard from "../ProductCard/ProductCard";
 
 export default function ProductShowcase() {
 
-  const [activeCategory, setActiveCategory] = useState("Carports");
+  const [products, setProducts] = useState([]);
+
+  const [categories, setCategories] = useState([]);
+
+  const [activeCategory, setActiveCategory] = useState("");
+
+  useEffect(() => {
+
+    getProducts();
+
+  }, []);
+
+  const getProducts = async () => {
+
+    const { data, error } = await supabase
+      .from("products")
+      .select("*");
+
+    if (error) {
+
+      console.log(error);
+
+      return;
+
+    }
+
+    setProducts(data);
+
+    const uniqueCategories = [
+      ...new Set(data.map(item => item.category))
+    ];
+
+    setCategories(uniqueCategories);
+
+    if (uniqueCategories.length > 0) {
+
+      setActiveCategory(uniqueCategories[0]);
+
+    }
+
+  };
 
   const filteredProducts = products.filter(
+
     product => product.category === activeCategory
+
   );
 
   return (
@@ -24,7 +65,9 @@ export default function ProductShowcase() {
         <h2>Featured Products</h2>
 
         <p>
+
           Browse our premium stainless steel and aluminium products.
+
         </p>
 
       </div>
@@ -35,21 +78,19 @@ export default function ProductShowcase() {
 
           <button
 
-            key={category.id}
+            key={category}
 
             className={
-              activeCategory === category.name
+              activeCategory === category
                 ? "active-category"
                 : ""
             }
 
-            onClick={() =>
-              setActiveCategory(category.name)
-            }
+            onClick={() => setActiveCategory(category)}
 
           >
 
-            {category.name}
+            {category}
 
           </button>
 
