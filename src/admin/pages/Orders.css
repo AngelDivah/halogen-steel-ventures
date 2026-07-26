@@ -1,78 +1,206 @@
 .orders-page{
-    padding:30px;
+padding:20px;
+width:100%;
 }
 
 .orders-page h1{
-    margin-bottom:20px;
+font-size:32px;
+margin-bottom:25px;
+color:#123D73;
+font-weight:700;
 }
 
-/* Makes the table scroll horizontally on mobile */
-.orders-page{
-    overflow-x:auto;
-}
+/* ============================= */
+/* DESKTOP TABLE */
+/* ============================= */
 
 .orders-page table{
-    width:100%;
-    min-width:900px;
-    border-collapse:collapse;
-    background:#fff;
-    border-radius:10px;
+width:100%;
+border-collapse:collapse;
+background:#fff;
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
 .orders-page th{
-    background:#111827;
-    color:#fff;
-    padding:15px;
-    text-align:left;
-    white-space:nowrap;
+background:#111827;
+color:#fff;
+padding:18px;
+text-align:left;
+font-size:15px;
 }
 
 .orders-page td{
-    padding:15px;
-    border-bottom:1px solid #ddd;
-    white-space:nowrap;
+padding:18px;
+border-bottom:1px solid #eee;
+vertical-align:middle;
 }
 
 .orders-page tr:hover{
-    background:#f8f8f8;
+background:#f8f9fb;
 }
 
 .orders-page a{
-    color:#2563eb;
-    text-decoration:none;
-    font-weight:600;
+color:#2563eb;
+font-weight:600;
+text-decoration:none;
 }
 
 .orders-page select{
-    padding:10px;
-    border-radius:8px;
-    border:1px solid #ccc;
-    min-width:180px;
-    cursor:pointer;
+width:190px;
+padding:10px;
+border-radius:10px;
+border:1px solid #ccc;
+background:#fff;
+font-weight:600;
+cursor:pointer;
 }
 
 .orders-page button{
-    margin-right:8px;
-    padding:8px 15px;
-    cursor:pointer;
+padding:10px 15px;
+cursor:pointer;
 }
+
+/* ============================= */
+/* TABLETS */
+/* ============================= */
+
+@media(max-width:992px){
+
+.orders-page{
+padding:10px;
+}
+
+.orders-page table{
+display:block;
+overflow-x:auto;
+white-space:nowrap;
+}
+
+}
+
+/* ============================= */
+/* PHONES */
+/* ============================= */
 
 @media(max-width:768px){
 
-    .orders-page{
-        padding:15px;
-    }
+.orders-page{
+padding:5px;
+}
 
-    .orders-page table{
-        min-width:950px;
-    }
+.orders-page table,
+.orders-page thead,
+.orders-page tbody,
+.orders-page tr,
+.orders-page th,
+.orders-page td{
+display:block;
+}
 
-    .orders-page::-webkit-scrollbar{
-        height:8px;
-    }
+.orders-page thead{
+display:none;
+}
 
-    .orders-page::-webkit-scrollbar-thumb{
-        background:#888;
-        border-radius:20px;
-    }
+.orders-page table{
+background:transparent;
+box-shadow:none;
+}
+
+.orders-page tbody{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.orders-page tr{
+background:#fff;
+padding:20px;
+border-radius:18px;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.orders-page td{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px 0;
+border:none;
+gap:12px;
+flex-wrap:wrap;
+}
+
+.orders-page td::before{
+font-weight:700;
+color:#123D73;
+}
+
+.orders-page td:nth-child(1)::before{
+content:"Customer";
+}
+
+.orders-page td:nth-child(2)::before{
+content:"Phone";
+}
+
+.orders-page td:nth-child(3)::before{
+content:"Total";
+}
+
+.orders-page td:nth-child(4)::before{
+content:"Receipt";
+}
+
+.orders-page td:nth-child(5)::before{
+content:"Payment";
+}
+
+.orders-page td:nth-child(6)::before{
+content:"Status";
+}
+
+.orders-page td:nth-child(7){
+display:block;
+padding-top:15px;
+}
+
+.orders-page td:nth-child(7)::before{
+content:"Update Status";
+display:block;
+margin-bottom:10px;
+font-weight:700;
+color:#123D73;
+}
+
+.orders-page select{
+width:100%;
+min-width:100%;
+}
+
+}
+
+/* ============================= */
+/* SMALL PHONES */
+/* ============================= */
+
+@media(max-width:390px){
+
+.orders-page h1{
+font-size:24px;
+text-align:center;
+}
+
+.orders-page tr{
+padding:18px;
+}
+
+.orders-page td{
+font-size:14px;
+}
+
+.orders-page select{
+font-size:14px;
+}
+
 }

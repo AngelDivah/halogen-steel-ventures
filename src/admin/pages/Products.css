@@ -1,171 +1,258 @@
 .admin-products{
-
 width:100%;
-
+padding:20px;
 }
 
 .admin-products-header{
-
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
-
-margin-bottom:35px;
-
+margin-bottom:30px;
+gap:15px;
+flex-wrap:wrap;
 }
 
 .admin-products-header h1{
-
-font-size:34px;
-
+font-size:32px;
 color:#123D73;
-
+font-weight:700;
 }
 
 .add-product-btn{
-
 background:#123D73;
-
-color:white;
-
-padding:14px 28px;
-
+color:#fff;
+padding:14px 24px;
 border-radius:10px;
-
 text-decoration:none;
-
 font-weight:600;
-
 transition:.3s;
-
+white-space:nowrap;
 }
 
 .add-product-btn:hover{
-
 background:#D9A520;
-
 }
 
 table{
-
 width:100%;
-
 border-collapse:collapse;
-
-background:white;
-
+background:#fff;
 border-radius:18px;
-
 overflow:hidden;
-
-box-shadow:0 15px 40px rgba(0,0,0,.08);
-
+box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
 thead{
-
 background:#123D73;
-
-color:white;
-
+color:#fff;
 }
 
 th{
-
 padding:18px;
-
-text-align:left;
-
 font-size:15px;
-
+text-align:left;
 }
 
 td{
-
 padding:18px;
-
 border-bottom:1px solid #eee;
-
 vertical-align:middle;
-
 }
 
 tbody tr:hover{
-
 background:#f8f9fb;
-
 }
 
 td img{
-
 width:80px;
-
 height:80px;
-
 object-fit:cover;
-
 border-radius:10px;
-
 }
 
 .edit-btn{
-
+display:inline-block;
 background:#123D73;
-
-color:white;
-
-border:none;
-
+color:#fff;
 padding:10px 18px;
-
 border-radius:8px;
-
-cursor:pointer;
-
+text-decoration:none;
 font-weight:600;
-
+transition:.3s;
 }
 
 .edit-btn:hover{
-
 background:#0d2d54;
-
 }
 
 .delete-btn{
-
 background:#dc3545;
-
-color:white;
-
-border:none;
-
+color:#fff;
 padding:10px 18px;
-
+border:none;
 border-radius:8px;
-
 cursor:pointer;
-
 font-weight:600;
-
+transition:.3s;
 }
 
 .delete-btn:hover{
-
 background:#bb2d3b;
+}
+
+/* ===========================
+TABLETS
+=========================== */
+
+@media(max-width:992px){
+
+.admin-products{
+padding:10px;
+}
+
+table{
+display:block;
+overflow-x:auto;
+white-space:nowrap;
+}
 
 }
 
-@media(max-width:900px){
+/* ===========================
+PHONES
+=========================== */
+
+@media(max-width:768px){
+
+.admin-products{
+padding:5px;
+}
+
+.admin-products-header{
+flex-direction:column;
+align-items:stretch;
+}
+
+.admin-products-header h1{
+text-align:center;
+font-size:26px;
+}
+
+.add-product-btn{
+width:100%;
+text-align:center;
+}
+
+table,
+thead,
+tbody,
+th,
+td,
+tr{
+display:block;
+}
+
+thead{
+display:none;
+}
 
 table{
+box-shadow:none;
+background:transparent;
+}
 
+tbody{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+tr{
+background:#fff;
+border-radius:18px;
+padding:18px;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+td{
+border:none;
+padding:8px 0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+}
+
+td::before{
+font-weight:700;
+color:#123D73;
+flex-shrink:0;
+}
+
+td:nth-child(1){
+display:flex;
+justify-content:center;
+}
+
+td:nth-child(1)::before{
+display:none;
+}
+
+td:nth-child(2)::before{
+content:"Name";
+}
+
+td:nth-child(3)::before{
+content:"Category";
+}
+
+td:nth-child(4)::before{
+content:"Price";
+}
+
+td:nth-child(5)::before{
+content:"";
+display:none;
+}
+
+td:nth-child(6)::before{
+content:"";
+display:none;
+}
+
+td img{
+width:120px;
+height:120px;
+margin:auto;
+}
+
+.edit-btn,
+.delete-btn{
+width:100%;
+text-align:center;
+margin-top:10px;
+}
+
+td:nth-child(5),
+td:nth-child(6){
 display:block;
+}
 
-overflow-x:auto;
+}
 
+/* ===========================
+SMALL PHONES
+=========================== */
+
+@media(max-width:390px){
+
+td img{
+width:100px;
+height:100px;
+}
+
+.admin-products-header h1{
+font-size:22px;
 }
 
 }
