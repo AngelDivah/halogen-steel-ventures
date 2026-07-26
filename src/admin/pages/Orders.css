@@ -1,21 +1,78 @@
 .orders-page{
-  padding:30px;
+    padding:30px;
+}
+
+.orders-page h1{
+    margin-bottom:20px;
+}
+
+/* Makes the table scroll horizontally on mobile */
+.orders-page{
+    overflow-x:auto;
 }
 
 .orders-page table{
-  width:100%;
-  border-collapse:collapse;
+    width:100%;
+    min-width:900px;
+    border-collapse:collapse;
+    background:#fff;
+    border-radius:10px;
 }
 
-.orders-page th,
+.orders-page th{
+    background:#111827;
+    color:#fff;
+    padding:15px;
+    text-align:left;
+    white-space:nowrap;
+}
+
 .orders-page td{
-  padding:15px;
-  border-bottom:1px solid #ddd;
-  text-align:left;
+    padding:15px;
+    border-bottom:1px solid #ddd;
+    white-space:nowrap;
+}
+
+.orders-page tr:hover{
+    background:#f8f8f8;
+}
+
+.orders-page a{
+    color:#2563eb;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.orders-page select{
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    min-width:180px;
+    cursor:pointer;
 }
 
 .orders-page button{
-  margin-right:8px;
-  padding:8px 15px;
-  cursor:pointer;
+    margin-right:8px;
+    padding:8px 15px;
+    cursor:pointer;
+}
+
+@media(max-width:768px){
+
+    .orders-page{
+        padding:15px;
+    }
+
+    .orders-page table{
+        min-width:950px;
+    }
+
+    .orders-page::-webkit-scrollbar{
+        height:8px;
+    }
+
+    .orders-page::-webkit-scrollbar-thumb{
+        background:#888;
+        border-radius:20px;
+    }
 }
