@@ -1,33 +1,31 @@
-import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import supabase from "../../lib/supabase";
 
-export default function ProtectedRoute({ children }) {
+export default function AdminRoute({ children }) {
   const [loading, setLoading] = useState(true);
   const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
-    checkAccess();
+    checkAdmin();
   }, []);
 
-  const checkAccess = async () => {
+  const checkAdmin = async () => {
     const {
-      data: { session },
-    } = await supabase.auth.getSession();
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    if (!session) {
+    if (!user) {
       setAuthorized(false);
       setLoading(false);
       return;
     }
 
-    const user = session.user;
-
     const { data, error } = await supabase
       .from("admins")
       .select("email")
       .eq("email", user.email)
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       setAuthorized(false);
@@ -39,7 +37,7 @@ export default function ProtectedRoute({ children }) {
   };
 
   if (loading) {
-    return <h2>Checking access...</h2>;
+    return <h2 style={{ padding: "50px" }}>Checking Access...</h2>;
   }
 
   if (!authorized) {

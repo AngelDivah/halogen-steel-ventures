@@ -21,44 +21,45 @@ import Settings from "../admin/pages/Settings";
 import Categories from "../admin/pages/Categories";
 import EditProduct from "../admin/pages/EditProduct";
 import AdminLogin from "../admin/pages/Login";
-import ProtectedRoute from "../admin/components/ProtectedRoute";
+
+import AdminRoute from "../admin/routes/AdminRoute";
+
 import TrackOrder from "../pages/TrackOrder/TrackOrder";
 import MyOrders from "../pages/MyOrders/MyOrders";
 import Profile from "../pages/Profile/Profile";
+
 export default function AppRoutes() {
-
   return (
-
     <BrowserRouter>
-
       <Routes>
 
         {/* WEBSITE */}
 
         <Route path="/" element={<Home />} />
-
         <Route path="/about" element={<About />} />
-
         <Route path="/services" element={<Services />} />
-
         <Route path="/products" element={<Products />} />
-
         <Route
           path="/products/:id"
           element={<ProductDetails />}
         />
-
         <Route path="/gallery" element={<Gallery />} />
-
         <Route path="/contact" element={<Contact />} />
-
         <Route path="/login" element={<Login />} />
-
         <Route path="/register" element={<Register />} />
-
         <Route path="/checkout" element={<Checkout />} />
-
-
+        <Route
+          path="/track-order"
+          element={<TrackOrder />}
+        />
+        <Route
+          path="/my-orders"
+          element={<MyOrders />}
+        />
+        <Route
+          path="/profile"
+          element={<Profile />}
+        />
 
         {/* ADMIN LOGIN */}
 
@@ -67,86 +68,72 @@ export default function AppRoutes() {
           element={<AdminLogin />}
         />
 
-
-
-        {/* ADMIN */}
+        {/* ADMIN ROUTES */}
 
         <Route
           path="/admin"
           element={
-            <ProtectedRoute>
+            <AdminRoute>
               <Dashboard />
-            </ProtectedRoute>
+            </AdminRoute>
           }
         />
 
         <Route
           path="/admin/products"
           element={
-            <ProtectedRoute>
+            <AdminRoute>
               <AdminProducts />
-            </ProtectedRoute>
+            </AdminRoute>
           }
         />
 
         <Route
           path="/admin/add-product"
           element={
-            <ProtectedRoute>
+            <AdminRoute>
               <AddProduct />
-            </ProtectedRoute>
+            </AdminRoute>
           }
         />
 
         <Route
           path="/admin/edit-product/:id"
           element={
-            <ProtectedRoute>
+            <AdminRoute>
               <EditProduct />
-            </ProtectedRoute>
+            </AdminRoute>
           }
         />
 
         <Route
           path="/admin/orders"
           element={
-            <ProtectedRoute>
+            <AdminRoute>
               <Orders />
-            </ProtectedRoute>
+            </AdminRoute>
           }
         />
 
         <Route
           path="/admin/categories"
           element={
-            <ProtectedRoute>
+            <AdminRoute>
               <Categories />
-            </ProtectedRoute>
+            </AdminRoute>
           }
         />
 
         <Route
           path="/admin/settings"
           element={
-            <ProtectedRoute>
+            <AdminRoute>
               <Settings />
-            </ProtectedRoute>
+            </AdminRoute>
           }
         />
-        <Route
-  path="/track-order"
-  element={<TrackOrder />}
-/>
-<Route
-  path="/my-orders"
-  element={<MyOrders />}
-/>
 
-<Route path="/profile" element={<Profile />} />
       </Routes>
-
     </BrowserRouter>
-
   );
-
 }
