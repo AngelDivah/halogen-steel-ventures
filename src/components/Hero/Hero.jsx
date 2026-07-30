@@ -41,8 +41,7 @@ export default function Hero() {
           Stainless Steel • Engineering Excellence
         </span>
 
-        <h1>
-          RC NO:6904415
+        <h1> 
           Premium Stainless Steel
           <br />
           Solutions Built To Last.

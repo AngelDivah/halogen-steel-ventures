@@ -48,6 +48,7 @@ export default function Navbar() {
 
         <div className="logo">
           <span className="gold">
+            RC NO:6904415
             HALOGEN
           </span>
 
