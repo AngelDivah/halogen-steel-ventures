@@ -356,7 +356,7 @@ Save this number.
 
               <strong>
 
-                Account Name:
+                Account Name: MONIEPOINT
 
               </strong>
 
@@ -370,7 +370,7 @@ Save this number.
 
               <strong>
 
-                Account Number:
+                Account Number:8267811734
 
               </strong>
 
