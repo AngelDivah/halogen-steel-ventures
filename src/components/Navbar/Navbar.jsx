@@ -56,7 +56,7 @@ export default function Navbar() {
           </span>
 
           <span className="blue">
-            Stainless & Steel Venture
+            
           </span>
         </div>
 
