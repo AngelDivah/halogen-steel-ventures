@@ -1,310 +1,616 @@
+/* ==========================================
+   RESET
+========================================== */
+
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
+
+a{
+    text-decoration:none;
+}
+
+button{
+    border:none;
+    outline:none;
+    cursor:pointer;
+    font-family:inherit;
+}
+
+
+/* ==========================================
+   MAIN NAVBAR
+========================================== */
 
 .navbar{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:80px;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 5%;
-box-shadow:0 10px 30px rgba(0,0,0,.08);
-z-index:1000;
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:95px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 5%;
+
+    background-image:url("/navbar-banner.png");
+    background-repeat:no-repeat;
+    background-position:center top;
+    background-size:100% auto;
+
+    overflow:hidden;
+
+    z-index:1000;
+
+    box-shadow:
+    0 10px 35px rgba(0,0,0,.30);
+
 }
+
+
+/* Dark overlay (NOT blur) */
+
+.navbar::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+    linear-gradient(
+
+        rgba(4,15,50,.58),
+
+        rgba(5,18,60,.58)
+
+    );
+
+    z-index:1;
+
+}
+
+
+/* Everything above overlay */
+
+.navbar>*{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+/* ==========================================
+   LOGO
+========================================== */
 
 .logo{
-display:flex;
-flex-direction:column;
-line-height:1.1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    line-height:1.05;
+
 }
+
 
 .gold{
-font-size:30px;
-font-weight:800;
-letter-spacing:2px;
-color:#D9A520;
+
+    color:#FFD93D;
+
+    font-size:32px;
+
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    text-shadow:
+
+    0 3px 10px rgba(0,0,0,.55);
+
 }
+
 
 .blue{
-font-size:13px;
-font-weight:600;
-color:#123D73;
+
+    color:white;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    letter-spacing:1px;
+
+    text-shadow:
+
+    0 2px 8px rgba(0,0,0,.55);
+
 }
+
+
+/* ==========================================
+   NAV LINKS
+========================================== */
 
 .nav-links{
-display:flex;
-align-items:center;
-gap:30px;
-list-style:none;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:34px;
+
+    list-style:none;
+
 }
+
 
 .nav-links li{
-list-style:none;
+
+    list-style:none;
+
 }
+
 
 .nav-links a{
-text-decoration:none;
-color:#222;
-font-weight:600;
-transition:.3s;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    letter-spacing:.4px;
+
+    transition:.35s;
+
+    position:relative;
+
 }
+
+
+/* gold underline animation */
+
+.nav-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:-6px;
+
+    width:0%;
+
+    height:3px;
+
+    background:#FFD93D;
+
+    transition:.35s;
+
+}
+
 
 .nav-links a:hover{
-color:#D9A520;
+
+    color:#FFD93D;
+
 }
 
-.nav-buttons{
-display:flex;
-align-items:center;
-gap:15px;
+
+.nav-links a:hover::after{
+
+    width:100%;
+
 }
+/* ==========================================
+   RIGHT SIDE BUTTONS
+========================================== */
+
+.nav-buttons{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+}
+
+
+/* ==========================================
+   CART ICON
+========================================== */
 
 .cart-icon,
 .mobile-cart{
-width:48px;
-height:48px;
-border-radius:50%;
-background:#123D73;
-display:flex;
-align-items:center;
-justify-content:center;
-color:#fff;
-cursor:pointer;
-position:relative;
-transition:.3s;
+
+    width:48px;
+    height:48px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.18);
+
+    border:1px solid rgba(255,255,255,.30);
+
+    color:white;
+
+    position:relative;
+
+    backdrop-filter:blur(10px);
+
+    transition:.35s;
+
+    box-shadow:
+    0 0 18px rgba(255,255,255,.10),
+    0 8px 18px rgba(0,0,0,.28);
+
 }
+
 
 .cart-icon:hover,
 .mobile-cart:hover{
-background:#D9A520;
+
+    background:#D9A520;
+
+    border-color:#D9A520;
+
+    box-shadow:
+    0 0 20px rgba(217,165,32,.75);
+
 }
+
 
 .cart-icon span,
 .mobile-cart span{
-position:absolute;
-top:-5px;
-right:-5px;
-width:22px;
-height:22px;
-border-radius:50%;
-background:red;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:12px;
-font-weight:bold;
-color:#fff;
+
+    position:absolute;
+
+    top:-5px;
+    right:-5px;
+
+    width:22px;
+    height:22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#e53935;
+
+    color:white;
+
+    font-size:12px;
+    font-weight:700;
+
 }
+
+
+/* ==========================================
+   LOGIN / REGISTER / ACCOUNT BUTTONS
+========================================== */
 
 .quote-btn{
-padding:12px 22px;
-border:none;
-border-radius:40px;
-background:#D9A520;
-color:#fff;
-text-decoration:none;
-font-weight:700;
-cursor:pointer;
-transition:.3s;
+
+    padding:12px 22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:40px;
+
+    background:rgba(8,22,70,.65);
+
+    border:1px solid rgba(255,255,255,.22);
+
+    color:white;
+
+    font-weight:700;
+
+    transition:.35s;
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+    0 0 15px rgba(0,0,0,.25),
+    0 8px 18px rgba(0,0,0,.28);
+
 }
+
 
 .quote-btn:hover{
-background:#123D73;
+
+    background:#D9A520;
+
+    border-color:#D9A520;
+
+    box-shadow:
+    0 0 18px rgba(217,165,32,.75);
+
 }
+
+
+/* ==========================================
+   WHATSAPP BUTTON
+========================================== */
 
 .whatsapp-btn{
-display:flex;
-align-items:center;
-gap:8px;
-padding:12px 20px;
-border-radius:40px;
-background:#25D366;
-color:#fff;
-text-decoration:none;
-font-weight:700;
-transition:.3s;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:12px 20px;
+
+    border-radius:40px;
+
+    background:#25D366;
+
+    color:white;
+
+    font-weight:700;
+
+    transition:.35s;
+
+    box-shadow:
+    0 0 18px rgba(37,211,102,.45);
+
 }
+
 
 .whatsapp-btn:hover{
-background:#1ea851;
+
+    background:#1BA851;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 0 22px rgba(37,211,102,.85);
+
 }
+
+
+/* ==========================================
+   HAMBURGER MENU
+========================================== */
 
 .menu-icon{
-display:none;
-font-size:28px;
-cursor:pointer;
-color:#123D73;
-z-index:1101;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:28px;
+
+    color:white;
+
+    cursor:pointer;
+
+    z-index:1101;
+
 }
 
+
 .mobile-cart{
-display:none;
+    display:none;
 }
 
 .mobile-buttons{
-display:none;
+    display:none;
 }
+
+
+/* ==========================================
+   MOBILE LOGOUT BUTTON
+========================================== */
 
 .mobile-logout{
-width:100%;
-padding:15px;
-background:#D9A520;
-border:none;
-border-radius:10px;
-font-weight:700;
-color:#fff;
-cursor:pointer;
-}
 
-.logout-link{
-background:none;
-border:none;
-font:inherit;
-cursor:pointer;
-color:inherit;
-}
+    width:100%;
 
-.logout-link:hover{
-color:#D9A520;
-}
+    padding:15px;
 
-/* ===========================
-TABLET
-=========================== */
+    border-radius:12px;
 
-@media (max-width:992px){
+    background:#D9A520;
 
-.nav-links{
-gap:20px;
-}
+    color:white;
 
-.gold{
-font-size:26px;
-}
+    font-size:15px;
+    font-weight:700;
 
 }
 
-/* ===========================
-MOBILE
-=========================== */
 
-@media (max-width:768px){
+/* ==========================================
+   TABLET
+========================================== */
 
-.navbar{
-padding:0 18px;
-height:75px;
-}
+@media(max-width:992px){
 
-.logo{
-position:absolute;
-left:50%;
-transform:translateX(-50%);
-align-items:center;
-}
+    .gold{
+        font-size:28px;
+    }
 
-.gold{
-font-size:22px;
-}
-
-.blue{
-font-size:10px;
-text-align:center;
-}
-
-.menu-icon{
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-.mobile-cart{
-display:flex;
-}
-
-.nav-buttons{
-display:none;
-}
-
-.nav-links{
-position:fixed;
-top:75px;
-left:-100%;
-width:80%;
-max-width:320px;
-height:calc(100vh - 75px);
-background:#fff;
-flex-direction:column;
-align-items:flex-start;
-padding:35px 25px;
-gap:25px;
-transition:.35s;
-box-shadow:10px 0 30px rgba(0,0,0,.12);
-overflow-y:auto;
-}
-
-.nav-links.active{
-left:0;
-}
-
-.nav-links li{
-width:100%;
-}
-
-.nav-links a{
-display:block;
-width:100%;
-font-size:17px;
-padding:10px 0;
-}
-
-.mobile-buttons{
-display:flex;
-flex-direction:column;
-width:100%;
-margin-top:auto;
-gap:15px;
-}
-
-.mobile-buttons .whatsapp-btn{
-justify-content:center;
-width:100%;
-}
-
-.mobile-logout{
-margin-top:5px;
-}
+    .nav-links{
+        gap:22px;
+    }
 
 }
 
-/* ===========================
-SMALL PHONES
-=========================== */
 
-@media (max-width:390px){
+/* ==========================================
+   MOBILE MENU
+========================================== */
 
-.gold{
-font-size:20px;
+@media(max-width:768px){
+
+    .navbar{
+
+        height:88px;
+
+        padding:0 18px;
+
+        background-size:auto 100%;
+        background-position:center top;
+
+    }
+
+    .logo{
+
+        position:absolute;
+
+        left:50%;
+
+        transform:translateX(-50%);
+
+        align-items:center;
+
+    }
+
+    .gold{
+        font-size:22px;
+    }
+
+    .blue{
+        font-size:10px;
+        text-align:center;
+    }
+
+    .menu-icon{
+        display:flex;
+    }
+
+    .mobile-cart{
+        display:flex;
+    }
+
+    .nav-buttons{
+        display:none;
+    }
+
+    .nav-links{
+
+        position:fixed;
+
+        top:88px;
+        left:-100%;
+
+        width:84%;
+        max-width:330px;
+
+        height:calc(100vh - 88px);
+
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+
+        padding:34px 24px;
+
+        gap:24px;
+
+        background:#123D73;
+
+        transition:.35s;
+
+        overflow-y:auto;
+
+        box-shadow:15px 0 40px rgba(0,0,0,.35);
+
+    }
+
+    .nav-links.active{
+        left:0;
+    }
+
+    .nav-links li{
+        width:100%;
+    }
+
+    .nav-links a{
+
+        display:block;
+
+        width:100%;
+
+        padding:10px 0;
+
+        font-size:17px;
+
+    }
+
+    .mobile-buttons{
+
+        display:flex;
+
+        flex-direction:column;
+
+        width:100%;
+
+        gap:15px;
+
+        margin-top:auto;
+
+    }
+
+    .mobile-buttons .whatsapp-btn{
+
+        width:100%;
+
+        justify-content:center;
+
+    }
+
 }
 
-.blue{
-font-size:9px;
-}
 
-.mobile-cart,
-.cart-icon{
-width:44px;
-height:44px;
-}
+/* ==========================================
+   SMALL PHONES
+========================================== */
 
-.nav-links{
-width:85%;
-}
+@media(max-width:390px){
+
+    .gold{
+        font-size:19px;
+    }
+
+    .blue{
+        font-size:9px;
+    }
+
+    .cart-icon,
+    .mobile-cart{
+
+        width:44px;
+        height:44px;
+
+    }
+
+    .nav-links{
+        width:88%;
+    }
 
 }

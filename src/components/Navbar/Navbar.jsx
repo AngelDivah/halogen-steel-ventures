@@ -26,18 +26,18 @@ export default function Navbar() {
     0
   );
 
+  const closeMenu = () => setMenuOpen(false);
+
   const handleLogout = async () => {
     await logout();
-    setMenuOpen(false);
-  };
-
-  const closeMenu = () => {
-    setMenuOpen(false);
+    closeMenu();
   };
 
   return (
     <>
       <nav className="navbar">
+
+        {/* Mobile Menu Icon */}
 
         <div
           className="menu-icon"
@@ -46,16 +46,21 @@ export default function Navbar() {
           {menuOpen ? <FaTimes /> : <FaBars />}
         </div>
 
+        {/* Logo */}
+
         <div className="logo">
           <span className="gold">
-            RC NO:6904415
-            HALOGEN
+         
+            <br />
+           
           </span>
 
           <span className="blue">
             Stainless & Steel Venture
           </span>
         </div>
+
+        {/* Mobile Cart */}
 
         <div
           className="mobile-cart"
@@ -68,6 +73,8 @@ export default function Navbar() {
           )}
         </div>
 
+        {/* Navigation */}
+
         <ul
           className={
             menuOpen
@@ -75,38 +82,27 @@ export default function Navbar() {
               : "nav-links"
           }
         >
+
           <li>
-            <Link
-              to="/"
-              onClick={closeMenu}
-            >
+            <Link to="/" onClick={closeMenu}>
               Home
             </Link>
           </li>
 
           <li>
-            <Link
-              to="/products"
-              onClick={closeMenu}
-            >
+            <Link to="/products" onClick={closeMenu}>
               Shop
             </Link>
           </li>
 
           <li>
-            <Link
-              to="/gallery"
-              onClick={closeMenu}
-            >
+            <Link to="/gallery" onClick={closeMenu}>
               Gallery
             </Link>
           </li>
 
           <li>
-            <Link
-              to="/track-order"
-              onClick={closeMenu}
-            >
+            <Link to="/track-order" onClick={closeMenu}>
               Track Order
             </Link>
           </li>
@@ -114,19 +110,13 @@ export default function Navbar() {
           {user && (
             <>
               <li>
-                <Link
-                  to="/my-orders"
-                  onClick={closeMenu}
-                >
+                <Link to="/my-orders" onClick={closeMenu}>
                   My Orders
                 </Link>
               </li>
 
               <li>
-                <Link
-                  to="/profile"
-                  onClick={closeMenu}
-                >
+                <Link to="/profile" onClick={closeMenu}>
                   Profile
                 </Link>
               </li>
@@ -136,19 +126,13 @@ export default function Navbar() {
           {!user ? (
             <>
               <li>
-                <Link
-                  to="/login"
-                  onClick={closeMenu}
-                >
+                <Link to="/login" onClick={closeMenu}>
                   Login
                 </Link>
               </li>
 
               <li>
-                <Link
-                  to="/register"
-                  onClick={closeMenu}
-                >
+                <Link to="/register" onClick={closeMenu}>
                   Sign Up
                 </Link>
               </li>
@@ -164,18 +148,23 @@ export default function Navbar() {
             </li>
           )}
 
+          {/* Mobile WhatsApp */}
+
           <div className="mobile-buttons">
             <a
-              href="https://wa.me/2347035742676"
+              href="https://wa.me/2348143763866"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="whatsapp-btn"
             >
               <FaWhatsapp />
               WhatsApp
             </a>
           </div>
+
         </ul>
+
+        {/* Desktop Buttons */}
 
         <div className="nav-buttons">
 
@@ -189,7 +178,8 @@ export default function Navbar() {
               <span>{totalItems}</span>
             )}
           </div>
-                    {!user ? (
+
+          {!user ? (
             <>
               <Link
                 to="/login"
@@ -224,9 +214,9 @@ export default function Navbar() {
           )}
 
           <a
-            href="https://wa.me/2347035742676"
+            href="https://wa.me/2348143763866"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="whatsapp-btn"
           >
             <FaWhatsapp />
@@ -241,8 +231,6 @@ export default function Navbar() {
         open={cartOpen}
         close={() => setCartOpen(false)}
       />
-
     </>
   );
-
 }
