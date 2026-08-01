@@ -7,19 +7,25 @@ export default function ProductCatalogue() {
 
   const [products, setProducts] = useState([]);
 
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [categories, setCategories] = useState([]);
+
+  const [activeCategory, setActiveCategory] =
+    useState("All");
 
   useEffect(() => {
 
-    getProducts();
+    fetchProducts();
+
+    fetchCategories();
 
   }, []);
 
-  const getProducts = async () => {
+  async function fetchProducts() {
 
     const { data, error } = await supabase
       .from("products")
-      .select("*");
+      .select("*")
+      .order("id", { ascending: false });
 
     if (error) {
 
@@ -29,17 +35,28 @@ export default function ProductCatalogue() {
 
     }
 
-    setProducts(data);
+    setProducts(data || []);
 
-  };
+  }
 
-  const categories = [
+  async function fetchCategories() {
 
-    "All",
+    const { data, error } = await supabase
+      .from("categories")
+      .select("*")
+      .order("name", { ascending: true });
 
-    ...new Set(products.map(product => product.category))
+    if (error) {
 
-  ];
+      console.log(error);
+
+      return;
+
+    }
+
+    setCategories(data || []);
+
+  }
 
   const filteredProducts =
 
@@ -49,7 +66,8 @@ export default function ProductCatalogue() {
 
       : products.filter(
 
-          product => product.category === activeCategory
+          product =>
+            product.category === activeCategory
 
         );
 
@@ -67,27 +85,38 @@ export default function ProductCatalogue() {
 
       <div className="category-tabs">
 
-        {categories.map(category => (
+        <button
+          className={
+            activeCategory === "All"
+              ? "tab active-tab"
+              : "tab"
+          }
+          onClick={() =>
+            setActiveCategory("All")
+          }
+        >
+          All
+        </button>
+
+        {categories.map((category) => (
 
           <button
 
-            key={category}
+            key={category.id}
 
             className={
-
-              activeCategory === category
-
+              activeCategory === category.name
                 ? "tab active-tab"
-
                 : "tab"
-
             }
 
-            onClick={() => setActiveCategory(category)}
+            onClick={() =>
+              setActiveCategory(category.name)
+            }
 
           >
 
-            {category}
+            {category.name}
 
           </button>
 
@@ -97,70 +126,76 @@ export default function ProductCatalogue() {
 
       <div className="catalogue-grid">
 
-        {filteredProducts.map(product => (
+        {filteredProducts.length === 0 ? (
 
-          <div
+          <div className="no-products">
 
-            className="catalogue-card"
-
-            key={product.id}
-
-          >
-
-            <img
-
-              src={product.cover}
-
-              alt={product.title}
-
-            />
-
-            <div className="catalogue-info">
-
-              <span>
-
-                {product.category}
-
-                {product.subcategory &&
-                  ` • ${product.subcategory}`}
-
-              </span>
-
-              <h3>
-
-                {product.title}
-
-              </h3>
-
-              <p className="price">
-
-                ₦{Number(product.price).toLocaleString()}
-
-              </p>
-
-              <p className="measurement">
-
-                {product.measurement}
-
-              </p>
-
-              <Link
-
-                to={`/products/${product.id}`}
-
-                className="view-btn"
-
-              >
-
-                View Product
-
-              </Link>
-
-            </div>
+            No Products Found
 
           </div>
 
-        ))}
+        ) : (
+
+          filteredProducts.map((product) => (
+
+            <div
+              className="catalogue-card"
+              key={product.id}
+            >
+
+              <img
+                src={product.cover}
+                alt={product.title}
+              />
+
+              <div className="catalogue-info">
+
+                <span>
+
+                  {product.category}
+
+                  {product.subcategory &&
+                    ` • ${product.subcategory}`}
+
+                </span>
+
+                <h3>
+
+                  {product.title}
+
+                </h3>
+
+                <p className="price">
+
+                  ₦
+                  {Number(
+                    product.price
+                  ).toLocaleString()}
+
+                </p>
+
+                <p className="measurement">
+
+                  {product.measurement}
+
+                </p>
+
+                <Link
+                  to={`/products/${product.id}`}
+                  className="view-btn"
+                >
+
+                  View Product
+
+                </Link>
+
+              </div>
+
+            </div>
+
+          ))
+
+        )}
 
       </div>
 

@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../layout/Layout";
 import "./AddProduct.css";
 import supabase from "../../lib/supabase";
-import categories from "../data/categories";
 
 export default function AddProduct() {
+  const [loading, setLoading] = useState(false);
+
+  const [categories, setCategories] = useState([]);
+
   const [product, setProduct] = useState({
     title: "",
     category: "",
@@ -15,91 +18,116 @@ export default function AddProduct() {
     images: [],
   });
 
-  const handleChange = (e) => {
-    setProduct({
-      ...product,
-      [e.target.name]: e.target.value,
-    });
-  };
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
-  const handleImages = (e) => {
-    setProduct({
-      ...product,
-      images: [...e.target.files],
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    let imageUrls = [];
-
-    if (product.images.length > 0) {
-      for (const image of product.images) {
-        const fileName = `${Date.now()}-${image.name}`;
-
-        const { error: uploadError } = await supabase.storage
-          .from("products")
-          .upload(fileName, image);
-
-        if (uploadError) {
-          console.log("UPLOAD ERROR:", uploadError);
-          alert(uploadError.message);
-          return;
-        }
-
-        const { data } = supabase.storage
-          .from("products")
-          .getPublicUrl(fileName);
-
-        imageUrls.push(data.publicUrl);
-      }
-    }
-
-    const { error } = await supabase
-      .from("products")
-      .insert([
-        {
-          title: product.title,
-          category: product.category,
-          subcategory: product.subCategory,
-          price: Number(product.price),
-          measurement: product.measurement,
-          description: product.description,
-          cover: imageUrls[0] || "",
-          images: imageUrls,
-        },
-      ]);
+  async function fetchCategories() {
+    const { data, error } = await supabase
+      .from("categories")
+      .select("*")
+      .order("name", { ascending: true });
 
     if (error) {
-      console.log("DATABASE ERROR:", error);
-      alert(error.message);
+      console.log(error);
       return;
     }
 
-    alert("✅ Product Added Successfully!");
+    setCategories(data || []);
+  }
 
-    setProduct({
-      title: "",
-      category: "",
-      subCategory: "",
-      price: "",
-      measurement: "",
-      description: "",
-      images: [],
-    });
-  };
+  function handleChange(e) {
+    setProduct((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  }
+
+  function handleImages(e) {
+    setProduct((prev) => ({
+      ...prev,
+      images: Array.from(e.target.files),
+    }));
+  }
+
+  async function uploadImage(file) {
+    const fileName = `${Date.now()}-${Math.random()}-${file.name}`;
+
+    const { error } = await supabase.storage
+      .from("products")
+      .upload(fileName, file);
+
+    if (error) throw error;
+
+    const { data } = supabase.storage
+      .from("products")
+      .getPublicUrl(fileName);
+
+    return data.publicUrl;
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    setLoading(true);
+
+    try {
+      const imageUrls = await Promise.all(
+        product.images.map(uploadImage)
+      );
+
+      const { error } = await supabase
+        .from("products")
+        .insert([
+          {
+            title: product.title,
+            category: product.category,
+            subcategory: product.subCategory,
+            price: Number(product.price),
+            measurement: product.measurement,
+            description: product.description,
+            cover: imageUrls[0] || "",
+            images: imageUrls,
+          },
+        ]);
+
+      if (error) throw error;
+
+      alert("✅ Product Added Successfully!");
+
+      await fetchCategories();
+
+      setProduct({
+        title: "",
+        category: "",
+        subCategory: "",
+        price: "",
+        measurement: "",
+        description: "",
+        images: [],
+      });
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <Layout>
       <div className="add-product-page">
         <h1>Add Product</h1>
 
-        <form className="product-form" onSubmit={handleSubmit}>
+        <form
+          className="product-form"
+          onSubmit={handleSubmit}
+        >
           <div className="form-group">
             <label>Product Name</label>
 
             <input
+              type="text"
               name="title"
               value={product.title}
               onChange={handleChange}
@@ -111,26 +139,30 @@ export default function AddProduct() {
           <div className="form-group">
             <label>Category</label>
 
-            <select
+            <input
+              list="category-list"
               name="category"
               value={product.category}
               onChange={handleChange}
+              placeholder="Select or type category"
               required
-            >
-              <option value="">Select Category</option>
+            />
 
+            <datalist id="category-list">
               {categories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
+                <option
+                  key={category.id}
+                  value={category.name}
+                />
               ))}
-            </select>
+            </datalist>
           </div>
 
           <div className="form-group">
             <label>Sub Category</label>
 
             <input
+              type="text"
               name="subCategory"
               value={product.subCategory}
               onChange={handleChange}
@@ -154,10 +186,11 @@ export default function AddProduct() {
             <label>Measurement</label>
 
             <input
+              type="text"
               name="measurement"
               value={product.measurement}
               onChange={handleChange}
-              placeholder="12ft x 8ft"
+              placeholder="12ft × 8ft"
             />
           </div>
 
@@ -173,20 +206,22 @@ export default function AddProduct() {
           </div>
 
           <div className="form-group full">
-            <label>Images</label>
+            <label>Product Images</label>
 
             <input
               type="file"
+              accept="image/*"
               multiple
               onChange={handleImages}
             />
           </div>
 
           <button
-            type="submit"
             className="save-btn"
+            type="submit"
+            disabled={loading}
           >
-            Save Product
+            {loading ? "Uploading..." : "Save Product"}
           </button>
         </form>
       </div>
