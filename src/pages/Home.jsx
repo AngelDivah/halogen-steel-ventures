@@ -11,6 +11,7 @@ import Fabrication from "../components/Fabrication/Fabrication.jsx";
 import WhyChoose from "../components/WhyChoose/WhyChoose.jsx";
 import CTA from "../components/CTA/CTA.jsx";
 import Footer from "../components/Footer/Footer.jsx";
+import Reviews from "../components/Reviews/Reviews";
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
 <Products />
 <Fabrication />
 <WhyChoose />
+<Reviews />
 <GetPrice />
 <CTA />
 <Footer />

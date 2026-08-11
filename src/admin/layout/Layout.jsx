@@ -9,6 +9,8 @@ import {
   FaSignOutAlt,
   FaBars,
   FaTimes,
+  FaStar,
+  FaProjectDiagram,
 } from "react-icons/fa";
 
 import supabase from "../../lib/supabase";
@@ -16,84 +18,127 @@ import "./Layout.css";
 
 export default function Layout({ children }) {
   const navigate = useNavigate();
+
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const logout = async () => {
-    await supabase.auth.signOut();
-    navigate("/admin/login");
+  const closeMenu = () => {
+    setMenuOpen(false);
   };
 
-  const closeMenu = () => setMenuOpen(false);
+  async function logout() {
+    await supabase.auth.signOut();
+    navigate("/admin/login");
+  }
 
   return (
     <div className="admin-layout">
+
       {/* Mobile Menu Button */}
+
       <button
         className="menu-toggle"
         onClick={() => setMenuOpen(true)}
+        aria-label="Open admin menu"
       >
         <FaBars />
       </button>
 
-      {/* Overlay */}
+      {/* Mobile Overlay */}
+
       {menuOpen && (
         <div
           className="sidebar-overlay"
           onClick={closeMenu}
-        ></div>
+        />
       )}
 
       {/* Sidebar */}
-      <aside className={`sidebar ${menuOpen ? "open" : ""}`}>
-        {/* Close Button (Mobile) */}
+
+      <aside
+        className={`sidebar ${
+          menuOpen ? "open" : ""
+        }`}
+      >
+
         <button
           className="close-menu"
           onClick={closeMenu}
+          aria-label="Close admin menu"
         >
           <FaTimes />
         </button>
 
-        <h2>HALOGEN</h2>
+        {/* Logo */}
 
-        <NavLink
-          to="/admin"
-          onClick={closeMenu}
-        >
-          <FaHome />
-          Dashboard
-        </NavLink>
+        <div className="logo">
+          <h2>HALOGEN</h2>
+          <span>Admin Panel</span>
+        </div>
 
-        <NavLink
-          to="/admin/products"
-          onClick={closeMenu}
-        >
-          <FaBoxOpen />
-          Products
-        </NavLink>
+        {/* Navigation */}
 
-        <NavLink
-          to="/admin/orders"
-          onClick={closeMenu}
-        >
-          <FaClipboardList />
-          Orders
-        </NavLink>
+        <nav>
 
-        <NavLink
-          to="/admin/categories"
-          onClick={closeMenu}
-        >
-          <FaTags />
-          Categories
-        </NavLink>
+          <NavLink
+            to="/admin"
+            end
+            onClick={closeMenu}
+          >
+            <FaHome />
+            <span>Dashboard</span>
+          </NavLink>
 
-        <NavLink
-          to="/admin/settings"
-          onClick={closeMenu}
-        >
-          <FaCog />
-          Settings
-        </NavLink>
+          <NavLink
+            to="/admin/products"
+            onClick={closeMenu}
+          >
+            <FaBoxOpen />
+            <span>Products</span>
+          </NavLink>
+
+          <NavLink
+            to="/admin/orders"
+            onClick={closeMenu}
+          >
+            <FaClipboardList />
+            <span>Orders</span>
+          </NavLink>
+
+          <NavLink
+            to="/admin/projects"
+            onClick={closeMenu}
+          >
+            <FaProjectDiagram />
+            <span>Projects</span>
+          </NavLink>
+
+          <NavLink
+            to="/admin/categories"
+            onClick={closeMenu}
+          >
+            <FaTags />
+            <span>Categories</span>
+          </NavLink>
+
+          <NavLink
+            to="/admin/reviews"
+            onClick={closeMenu}
+          >
+            <FaStar />
+            <span>Reviews</span>
+          </NavLink>
+
+          <NavLink
+            to="/admin/settings"
+            onClick={closeMenu}
+          >
+            <FaCog />
+            <span>Settings</span>
+          </NavLink>
+
+        </nav>
+
+        {/* Logout */}
 
         <button
           className="logout-btn"
@@ -103,14 +148,17 @@ export default function Layout({ children }) {
           }}
         >
           <FaSignOutAlt />
-          Logout
+          <span>Logout</span>
         </button>
+
       </aside>
 
       {/* Main Content */}
+
       <main className="admin-content">
         {children}
       </main>
+
     </div>
   );
 }

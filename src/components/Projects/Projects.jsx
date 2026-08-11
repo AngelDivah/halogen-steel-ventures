@@ -1,68 +1,98 @@
+
+import { Link } from "react-router-dom";
 import "./Projects.css";
 
-import railing from "../../assets/images/projects/SS-Railing-1.jpg";
-import windows from "../../assets/images/projects/Aluminium Windows.jpg";
-import fence from "../../assets/images/projects/eletric fence.jpg";
-import gate from "../../assets/images/projects/Steel Gates.jpg";
 const projects = [
   {
-    image: railing,
-    title: "Stainless Steel Railings",
+    id: 1,
+    title: "Stainless Steel Railing",
+    category: "Stainless Steel",
+    image: "/projects/project-1.jpg",
   },
   {
-    image: windows,
-    title: "Aluminium Windows",
+    id: 2,
+    title: "Modern Steel Gate",
+    category: "Gates & Doors",
+    image: "/projects/project-2.jpg",
   },
   {
-    image: fence,
-    title: "Electric Fence",
-  },
-  {
-    image: gate,
-    title: "Steel Gates",
+    id: 3,
+    title: "Commercial Aluminium Windows",
+    category: "Aluminium",
+    image: "/projects/project-3.jpg",
   },
 ];
+
 export default function Projects() {
   return (
     <section className="projects">
 
-      <span className="section-tag">
-        FEATURED PROJECTS
-      </span>
+      <div className="projects-heading">
 
-      <h2>
-        Engineering Solutions
-        <br />
-        Built With Precision
-      </h2>
+        <div>
+          <span>OUR RECENT WORK</span>
+
+          <h2>
+            Projects We Are
+            <br />
+            Proud Of
+          </h2>
+        </div>
+
+        <p>
+          Take a look at some of the steel, stainless steel and
+          aluminium projects completed by Halogen Steel Ventures.
+        </p>
+
+      </div>
 
       <div className="projects-grid">
 
-        {projects.map((project,index)=>(
+        {projects.map((project) => (
 
-          <div
+          <article
             className="project-card"
-            key={index}
+            key={project.id}
           >
 
-            <img
-              src={project.image}
-              alt={project.title}
-            />
+            <div className="project-image">
 
-            <div className="overlay">
+              <img
+                src={project.image}
+                alt={project.title}
+              />
 
-              <h3>{project.title}</h3>
+              <div className="project-overlay">
 
-              <button>
-                View Service
-              </button>
+                <span>{project.category}</span>
+
+                <h3>{project.title}</h3>
+
+                <Link
+                  to="/projects"
+                  className="project-view-btn"
+                >
+                  View Projects →
+                </Link>
+
+              </div>
 
             </div>
 
-          </div>
+          </article>
 
         ))}
+
+      </div>
+
+      <div className="projects-action">
+
+        <Link
+          to="/projects"
+          className="all-projects-btn"
+        >
+          View All Completed Projects
+        </Link>
 
       </div>
 

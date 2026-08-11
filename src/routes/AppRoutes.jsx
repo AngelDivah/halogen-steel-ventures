@@ -1,4 +1,9 @@
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+/* =========================
+   WEBSITE PAGES
+========================= */
 
 import Home from "../pages/Home";
 import About from "../pages/About";
@@ -6,69 +11,123 @@ import Services from "../pages/Services";
 import Products from "../pages/Products";
 import Gallery from "../pages/Gallery";
 import Contact from "../pages/Contact";
+
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 
 import Checkout from "../pages/Checkout/Checkout";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
-
-/* Admin */
-import Dashboard from "../admin/pages/Dashboard";
-import AdminProducts from "../admin/pages/Products";
-import AddProduct from "../admin/pages/AddProduct";
-import Orders from "../admin/pages/Orders";
-import Settings from "../admin/pages/Settings";
-import Categories from "../admin/pages/Categories";
-import EditProduct from "../admin/pages/EditProduct";
-import AdminLogin from "../admin/pages/Login";
-
-import AdminRoute from "../admin/routes/AdminRoute";
-
 import TrackOrder from "../pages/TrackOrder/TrackOrder";
 import MyOrders from "../pages/MyOrders/MyOrders";
 import Profile from "../pages/Profile/Profile";
+
+/* =========================
+   ADMIN PAGES
+========================= */
+
+import Dashboard from "../admin/pages/Dashboard";
+import AdminProducts from "../admin/pages/Products";
+import AddProduct from "../admin/pages/AddProduct";
+import EditProduct from "../admin/pages/EditProduct";
+import Orders from "../admin/pages/Orders";
+import Categories from "../admin/pages/Categories";
+import Reviews from "../admin/pages/Reviews";
+import Settings from "../admin/pages/Settings";
+import AdminProjects from "../admin/pages/Projects";
+import AdminLogin from "../admin/pages/Login";
+
+import AdminRoute from "../admin/routes/AdminRoute";
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* WEBSITE */}
+        {/* =================================
+            WEBSITE
+        ================================= */}
 
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/products" element={<Products />} />
+        <Route
+          path="/"
+          element={<Home />}
+        />
+
+        <Route
+          path="/about"
+          element={<About />}
+        />
+
+        <Route
+          path="/services"
+          element={<Services />}
+        />
+
+        <Route
+          path="/products"
+          element={<Products />}
+        />
+
         <Route
           path="/products/:id"
           element={<ProductDetails />}
         />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/checkout" element={<Checkout />} />
+
+        {/* =================================
+            PUBLIC PROJECT GALLERY
+        ================================= */}
+
+        <Route
+          path="/gallery"
+          element={<Gallery />}
+        />
+
+        <Route
+          path="/contact"
+          element={<Contact />}
+        />
+
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+
+        <Route
+          path="/register"
+          element={<Register />}
+        />
+
+        <Route
+          path="/checkout"
+          element={<Checkout />}
+        />
+
         <Route
           path="/track-order"
           element={<TrackOrder />}
         />
+
         <Route
           path="/my-orders"
           element={<MyOrders />}
         />
+
         <Route
           path="/profile"
           element={<Profile />}
         />
 
-        {/* ADMIN LOGIN */}
+        {/* =================================
+            ADMIN LOGIN
+        ================================= */}
 
         <Route
           path="/admin/login"
           element={<AdminLogin />}
         />
 
-        {/* ADMIN ROUTES */}
+        {/* =================================
+            ADMIN DASHBOARD
+        ================================= */}
 
         <Route
           path="/admin"
@@ -78,6 +137,10 @@ export default function AppRoutes() {
             </AdminRoute>
           }
         />
+
+        {/* =================================
+            ADMIN PRODUCTS
+        ================================= */}
 
         <Route
           path="/admin/products"
@@ -106,6 +169,10 @@ export default function AppRoutes() {
           }
         />
 
+        {/* =================================
+            ADMIN ORDERS
+        ================================= */}
+
         <Route
           path="/admin/orders"
           element={
@@ -115,6 +182,23 @@ export default function AppRoutes() {
           }
         />
 
+        {/* =================================
+            ADMIN PROJECTS
+        ================================= */}
+
+        <Route
+          path="/admin/projects"
+          element={
+            <AdminRoute>
+              <AdminProjects />
+            </AdminRoute>
+          }
+        />
+
+        {/* =================================
+            ADMIN CATEGORIES
+        ================================= */}
+
         <Route
           path="/admin/categories"
           element={
@@ -123,6 +207,23 @@ export default function AppRoutes() {
             </AdminRoute>
           }
         />
+
+        {/* =================================
+            ADMIN REVIEWS
+        ================================= */}
+
+        <Route
+          path="/admin/reviews"
+          element={
+            <AdminRoute>
+              <Reviews />
+            </AdminRoute>
+          }
+        />
+
+        {/* =================================
+            ADMIN SETTINGS
+        ================================= */}
 
         <Route
           path="/admin/settings"
@@ -137,3 +238,4 @@ export default function AppRoutes() {
     </BrowserRouter>
   );
 }
+

@@ -94,7 +94,11 @@ export default function Navbar() {
               Shop
             </Link>
           </li>
-
+<li>
+  <Link to="/contact" onClick={closeMenu}>
+    Contact
+  </Link>
+</li>
           <li>
             <Link to="/gallery" onClick={closeMenu}>
               Gallery
